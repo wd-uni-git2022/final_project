@@ -1,8 +1,6 @@
 package htw.webdev.max.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 
@@ -10,6 +8,7 @@ import java.util.List;
 public class Quiz {
 
     @Id
+    @GeneratedValue
     private Long quizId;
 
     private String quizName;
@@ -23,7 +22,7 @@ public class Quiz {
     public Quiz() {
     }
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Question> questionList;
 
     @Override
