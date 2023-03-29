@@ -5,6 +5,7 @@ import org.eclipse.microprofile.jwt.Claims;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -18,6 +19,7 @@ public class AuthController {
                 .upn("testuser@example.org")
                 .groups(new HashSet<>(Arrays.asList("User", "Admin")))
                 .claim(Claims.preferred_username.name(), "testuser")
+                .expiresIn(Duration.ofHours(24))
                 .sign();
 
         return token;
