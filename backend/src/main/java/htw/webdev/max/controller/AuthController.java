@@ -16,7 +16,7 @@ public class AuthController {
     public String login() {
         String token = Jwt.issuer("http://localhost/issuer")
                 .upn("testuser@example.org")
-                .groups(new HashSet<>(Arrays.asList("User")))
+                .groups(new HashSet<>(Arrays.asList("User", "Admin")))
                 .claim(Claims.preferred_username.name(), "testuser")
                 .sign();
 
