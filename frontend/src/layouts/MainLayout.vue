@@ -1,116 +1,112 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh Lpr fFf"> <!-- Be sure to play with the Layout demo on docs -->
+
+    <!-- (Optional) The Header -->
     <q-header elevated>
-      <q-toolbar>
+      <q-toolbar v-if="isMobile">
         <q-btn
           flat
-          dense
           round
+          dense
           icon="menu"
-          aria-label="Menu"
           @click="toggleLeftDrawer"
         />
 
         <q-toolbar-title>
-          Quasar App
+          QuizApp
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
+
+      <q-tabs v-if="!isMobile">
+
+        <q-route-tab
+          icon="map"
+          to="/your/route"
+          replace
+          label="Home"
+        />
+        <q-route-tab
+          icon="quiz"
+          to="/some/other/route"
+          replace
+          label="Quizzes"
+        />
+        <q-route-tab
+          icon="login"
+          to="/some/other/route"
+          replace
+          label="Login"
+        />
+        <q-route-tab
+          icon="app_registration"
+          to="/some/other/route"
+          replace
+          label="Register"
+        />
+        <q-route-tab
+          icon="assignment"
+          to="/some/other/route"
+          replace
+          label="About"
+        />
+
+
+      </q-tabs>
     </q-header>
 
+
+    <!-- (Optional) A Drawer; you can add one more with side="right" or change this one's side -->
     <q-drawer
       v-model="leftDrawerOpen"
-      show-if-above
+      side="left"
       bordered
+      class="bg-grey-2"
+      elevated
+      v-if="isMobile"
     >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+      <!-- QScrollArea is optional -->
+      <q-scroll-area class="fit q-pa-sm">
+        <!-- Content here -->
+      </q-scroll-area>
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <!-- This is where pages get injected -->
+      <router-view/>
     </q-page-container>
+
   </q-layout>
 </template>
 
-<script>
-import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+<script setup>
+import {ref, onBeforeMount} from 'vue'
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
 
-export default defineComponent({
-  name: 'MainLayout',
+// name: 'LayoutName',
 
-  components: {
-    EssentialLink
-  },
+const leftDrawerOpen = ref(false)
 
-  setup () {
-    const leftDrawerOpen = ref(false)
+const isMobile = ref();
 
-    return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
+function mobileCheck(width){
+  return width < 900;
+}
+
+onBeforeMount(() => {
+  isMobile.value = mobileCheck(window.innerWidth)
+  window.addEventListener("resize", resizeEventHandler);
+
 })
+
+
+function resizeEventHandler(e) {
+  console.log(e);
+  isMobile.value = mobileCheck(window.innerWidth);
+}
+
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value
+}
+
+
 </script>
