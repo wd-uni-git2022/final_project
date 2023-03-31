@@ -32,16 +32,25 @@
           label="Quizzes"
         />
         <q-route-tab
+          v-if="!useUserStore().isAuthenticated"
           icon="login"
           to="/login"
           replace
           label="Login"
         />
         <q-route-tab
+          v-if="!useUserStore().isAuthenticated"
           icon="app_registration"
           to="/register"
           replace
           label="Register"
+        />
+        <q-route-tab
+          v-if="useUserStore().isAuthenticated"
+          icon="app_registration"
+          to="/logout"
+          replace
+          label="Logout"
         />
         <q-route-tab
           icon="assignment"
@@ -80,6 +89,7 @@
 
 <script setup>
 import {ref, onBeforeMount} from 'vue'
+import {useUserStore} from "stores/user";
 
 
 // name: 'LayoutName',

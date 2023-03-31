@@ -1,5 +1,6 @@
 import {boot} from 'quasar/wrappers'
 import axios from 'axios'
+import {useUserStore} from "stores/user";
 
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;
@@ -15,7 +16,7 @@ api.interceptors.response.use((response) => response, (error) => {
     console.log("axios interceptor 401 forbidden -> delete current token and redirect to login");
     localStorage.removeItem("token");
     delete api.defaults.headers.common["Authorization"];
-
+    useUserStore().isAuthenticated = false;
     window.location = "/login";
   }
 });

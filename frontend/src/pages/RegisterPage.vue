@@ -59,6 +59,8 @@
 
 import {ref} from "vue";
 import {api} from "boot/axios";
+import {useUserStore} from "stores/user";
+import {useRouter} from "vue-router";
 
 
 const username = ref("")
@@ -68,6 +70,8 @@ const passwordConfirm = ref("")
 
 const isPwd = ref(true)
 const isPwd2 = ref(true)
+
+const router = useRouter();
 
 function onSubmit() {
   console.log("form submit");
@@ -80,6 +84,8 @@ function onSubmit() {
     console.log("response: " + response.data);
     localStorage.setItem("token", response.data.token);
     api.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
+    useUserStore().isAuthenticated.value = true;
+    router.push("/")
   }).catch((error) => {
     console.log(error);
   })
