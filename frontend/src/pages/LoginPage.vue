@@ -34,7 +34,7 @@
 
 <script setup>
 
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {api} from "boot/axios";
 import {useUserStore} from "stores/user";
 import {useRouter} from "vue-router";
@@ -65,4 +65,8 @@ function onSubmit() {
   })
 
 }
+
+onMounted(() => {
+  console.log("login page mounted");
+})
 </script>
