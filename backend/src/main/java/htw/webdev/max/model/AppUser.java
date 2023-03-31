@@ -1,24 +1,23 @@
 package htw.webdev.max.model;
 
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
 import javax.persistence.Entity;
-import javax.persistence.Id;
+
 
 @Entity
-public class AppUser {
+public class AppUser extends PanacheEntity {
 
-    @Id
-    private Long userId;
+    // Needs to be public for Panache
+    public String username;
 
-    private String username;
+    public String email;
 
-    public Long getUserId() {
-        return userId;
-    }
+    public String password;
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+    public String role;
+
 
     public String getUsername() {
         return username;
@@ -27,4 +26,22 @@ public class AppUser {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 }
