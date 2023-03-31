@@ -42,7 +42,7 @@ public class AuthController {
 
         AppUser dbAppUser = authService.getUserFromDb(appUser.email);
 
-        String token = authService.createToken(appUser);
+        String token = authService.createToken(dbAppUser);
 
         return Response.ok().entity(JsonObject.of("token", token)).build();
     }

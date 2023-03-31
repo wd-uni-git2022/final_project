@@ -11,7 +11,6 @@ public class AppUserRepository implements PanacheRepository<AppUser> {
 
     public void addUser(AppUser appUser){
         appUser.setPassword(BcryptUtil.bcryptHash(appUser.getPassword()));
-        appUser.role = "user";
         appUser.persist();
     }
 

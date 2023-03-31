@@ -37,6 +37,14 @@ public class AuthService {
 
     @Transactional
     public void registerUser(AppUser appUser) {
+        appUser.role = "User";
+        appUserRepository.addUser(appUser);
+
+    }
+
+    @Transactional
+    public void registerAdmin(AppUser appUser) {
+        appUser.role = "Admin";
         appUserRepository.addUser(appUser);
 
     }
