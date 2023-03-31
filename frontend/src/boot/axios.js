@@ -1,4 +1,4 @@
-import { boot } from 'quasar/wrappers'
+import {boot} from 'quasar/wrappers'
 import axios from 'axios'
 
 // Be careful when using SSR for cross-request state pollution
@@ -7,9 +7,20 @@ import axios from 'axios'
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const api = axios.create({ baseURL: 'https://api.example.com' })
+const api = axios.create({})
+api.interceptors.response.use((response) => response, (error) => {
 
-export default boot(({ app }) => {
+  // If jwt is not valid anymore, delete current token and redirect to login
+  if (error.response.status === 401) {
+    console.log("axios interceptor 401 forbidden -> delete current token and redirect to login");
+    localStorage.removeItem("token");
+    delete api.defaults.headers.common["Authorization"];
+
+    window.location = "/login";
+  }
+});
+
+export default boot(({app}) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
 
   app.config.globalProperties.$axios = axios
@@ -21,4 +32,4 @@ export default boot(({ app }) => {
   //       so you can easily perform requests against your app's API
 })
 
-export { api }
+export {api}

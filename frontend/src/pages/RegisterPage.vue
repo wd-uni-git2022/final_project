@@ -58,7 +58,7 @@
 <script setup>
 
 import {ref} from "vue";
-import axios from "axios";
+import {api} from "boot/axios";
 
 
 const username = ref("")
@@ -71,13 +71,14 @@ const isPwd2 = ref(true)
 
 function onSubmit() {
   console.log("form submit");
-  axios.post("/api/auth/register",
+  api.post("/api/auth/register",
     {
       "username": username.value,
       "email": email.value,
       "password": password.value
     }).then((response) => {
-      console.log("response: " + response.data);
+    console.log("response: " + response.data);
+    localStorage.setItem("token", response.data.token);
   }).catch((error) => {
     console.log(error);
   })

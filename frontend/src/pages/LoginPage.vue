@@ -35,7 +35,7 @@
 <script setup>
 
 import {ref} from "vue";
-import axios from "axios";
+import {api} from "boot/axios";
 
 
 const email = ref("")
@@ -46,7 +46,7 @@ const isPwd = ref(true)
 
 function onSubmit() {
   console.log("form submit");
-  axios.post("/api/auth/login",
+  api.post("/api/auth/login",
     {
       "email": email.value,
       "password": password.value
