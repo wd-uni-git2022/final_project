@@ -21,31 +21,31 @@
 
         <q-route-tab
           icon="map"
-          to="/your/route"
+          to="/"
           replace
           label="Home"
         />
         <q-route-tab
           icon="quiz"
-          to="/some/other/route"
+          to="/quizzes"
           replace
           label="Quizzes"
         />
         <q-route-tab
           icon="login"
-          to="/some/other/route"
+          to="/login"
           replace
           label="Login"
         />
         <q-route-tab
           icon="app_registration"
-          to="/some/other/route"
+          to="/register"
           replace
           label="Register"
         />
         <q-route-tab
           icon="assignment"
-          to="/some/other/route"
+          to="/about"
           replace
           label="About"
         />
