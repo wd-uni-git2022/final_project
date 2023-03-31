@@ -6,7 +6,7 @@
       <div class="text-h6">{{ props.name }}</div>
 
       <q-card-actions vertical class="justify-around q-px-md">
-        <q-btn v-if="useUserStore().isAuthenticated" color="secondary" label="Play"/>
+        <q-btn v-if="useUserStore().isAuthenticated" color="secondary" label="Play" :to='"/quizzes/" + id'/>
         <q-btn v-else color="secondary" label="Play" disable/>
       </q-card-actions>
     </q-card-section>
