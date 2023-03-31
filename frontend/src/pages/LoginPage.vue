@@ -15,7 +15,7 @@
         label="Password"
         :type="isPwd ? 'password' : 'text'"
         lazy-rules
-        :rules="[ val => val]"
+        :rules="[ val => val && val.length > 0|| 'Please enter your password']"
       >
         <template v-slot:append>
           <q-icon
@@ -52,6 +52,8 @@ function onSubmit() {
       "password": password.value
     }).then((response) => {
     console.log("response: " + response.data);
+    localStorage.setItem("token", response.data.token);
+    api.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
   }).catch((error) => {
     console.log(error);
   })

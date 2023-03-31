@@ -79,6 +79,7 @@ function onSubmit() {
     }).then((response) => {
     console.log("response: " + response.data);
     localStorage.setItem("token", response.data.token);
+    api.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
   }).catch((error) => {
     console.log(error);
   })
