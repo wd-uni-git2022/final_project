@@ -36,18 +36,13 @@ public class AuthController {
             return Response.status(400).entity(JsonObject.of("reason", "data")).build();
         }
 
-        if(!authService.validateUserCredentials(appUser)){
+        if (!authService.validateUserCredentials(appUser)) {
             return Response.status(400).entity(JsonObject.of("reason", "credentials")).build();
         }
 
         AppUser dbAppUser = authService.getUserFromDb(appUser.email);
 
-        String token = Jwt.issuer("http://localhost/issuer")
-                .upn(dbAppUser.getEmail())
-                .groups(new HashSet<>(Collections.singletonList(dbAppUser.getRole())))
-                .claim(Claims.preferred_username.name(), dbAppUser.getUsername())
-                .expiresIn(Duration.ofHours(24))
-                .sign();
+        String token = authService.createToken(appUser);
 
         return Response.ok().entity(JsonObject.of("token", token)).build();
     }
@@ -71,6 +66,8 @@ public class AuthController {
 
         authService.registerUser(appUser);
 
-        return Response.ok().build();
+        String token = authService.createToken(appUser);
+
+        return Response.ok().entity(JsonObject.of("token", token)).build();
     }
 }
