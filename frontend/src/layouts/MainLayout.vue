@@ -48,7 +48,7 @@
         <q-route-tab
           v-if="useUserStore().isAuthenticated"
           icon="app_registration"
-          to="/logout"
+          @click="handleLogout"
           replace
           label="Logout"
         />
@@ -100,7 +100,7 @@
             </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/logout" v-if="useUserStore().isAuthenticated">
+          <q-item clickable v-ripple @click="handleLogout" v-if="useUserStore().isAuthenticated">
             <q-item-section>
               Logout
             </q-item-section>
@@ -128,6 +128,7 @@
 <script setup>
 import {ref, onBeforeMount} from 'vue'
 import {useUserStore} from "stores/user";
+import {api} from "boot/axios";
 
 
 // name: 'LayoutName',
@@ -154,6 +155,13 @@ function resizeEventHandler(e) {
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
+}
+
+function handleLogout() {
+  localStorage.removeItem("token");
+  delete api.defaults.headers.common["Authorization"];
+  useUserStore().isAuthenticated = false;
+  window.location = "/login";
 }
 
 
