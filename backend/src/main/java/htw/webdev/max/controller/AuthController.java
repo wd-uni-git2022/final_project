@@ -13,6 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 
 @Path("/api/auth")
@@ -25,16 +26,30 @@ public class AuthController {
 
     @POST
     @Path("login")
-    public String login(AppUser appUser) {
+    public Response login(AppUser appUser) {
+        LOG.info("appUser login");
+        LOG.info("appUser email: " + appUser.getEmail());
+        LOG.debug("appUser password: " + appUser.getPassword());
+
+        if (appUser.email == null || appUser.password == null) {
+            LOG.info("Missing login data in login request");
+            return Response.status(400).entity(JsonObject.of("reason", "data")).build();
+        }
+
+        if(!authService.validateUserCredentials(appUser)){
+            return Response.status(400).entity(JsonObject.of("reason", "credentials")).build();
+        }
+
+        AppUser dbAppUser = authService.getUserFromDb(appUser.email);
 
         String token = Jwt.issuer("http://localhost/issuer")
-                .upn("testuser@example.org")
-                .groups(new HashSet<>(Arrays.asList("User", "Admin")))
-                .claim(Claims.preferred_username.name(), "testuser")
+                .upn(dbAppUser.getEmail())
+                .groups(new HashSet<>(Collections.singletonList(dbAppUser.getRole())))
+                .claim(Claims.preferred_username.name(), dbAppUser.getUsername())
                 .expiresIn(Duration.ofHours(24))
                 .sign();
 
-        return token;
+        return Response.ok().entity(JsonObject.of("token", token)).build();
     }
 
     @POST
@@ -43,13 +58,13 @@ public class AuthController {
         LOG.info("appUser registration");
         LOG.info("appUser email: " + appUser.getEmail());
         LOG.info("appUser username: " + appUser.getUsername());
-        LOG.info("appUser password: " + appUser.getPassword());
+        LOG.debug("appUser password: " + appUser.getPassword());
 
-        if(!authService.checkUserRegistrationData(appUser)){
+        if (!authService.checkUserRegistrationData(appUser)) {
             LOG.info("Invalid registration data");
-            return Response.status(400, "Invalid registration data").build();
+            return Response.status(400).entity(JsonObject.of("reason", "data")).build();
         }
-        if(authService.doesUserExist(appUser)){
+        if (authService.doesUserExist(appUser)) {
             LOG.info("Email already exists");
             return Response.status(400).entity(JsonObject.of("reason", "email")).build();
         }
