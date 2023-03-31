@@ -8,20 +8,14 @@
         lazy-rules
         :rules="[ val => val && val.length > 0 && val.includes('@') || 'Please enter a valid email address']"
       />
-      <q-input
-        filled
-        v-model="username"
-        label="Username"
-        lazy-rules
-        :rules="[ val => val && val.length > 0 || 'Please enter a username']"
-      />
+
       <q-input
         filled
         v-model="password"
         label="Password"
         :type="isPwd ? 'password' : 'text'"
         lazy-rules
-        :rules="[ val => val && val.length >= 10 || 'Please enter a password with at least 10 characters']"
+        :rules="[ val => val]"
       >
         <template v-slot:append>
           <q-icon
@@ -31,25 +25,8 @@
           />
         </template>
       </q-input>
-      <q-input
-        filled
-        v-model="passwordConfirm"
-        label="Confirm password"
-        :type="isPwd2 ? 'password' : 'text'"
-        lazy-rules
-        :rules="[ val => val && val.length >= 10 && val === password || 'Password doesn\'t match']"
-      >
-        <template v-slot:append>
-          <q-icon
-            :name="isPwd2 ? 'visibility_off' : 'visibility'"
-            class="cursor-pointer"
-            @click="isPwd2 = !isPwd2"
-          />
-        </template>
-      </q-input>
-
       <div>
-        <q-btn label="Register" type="submit" color="primary"/>
+        <q-btn label="Login" type="submit" color="primary"/>
       </div>
     </q-form>
   </q-page>
@@ -61,23 +38,20 @@ import {ref} from "vue";
 import axios from "axios";
 
 
-const username = ref("")
 const email = ref("")
 const password = ref("")
-const passwordConfirm = ref("")
 
 const isPwd = ref(true)
-const isPwd2 = ref(true)
+
 
 function onSubmit() {
   console.log("form submit");
-  axios.post("/api/auth/register",
+  axios.post("/api/auth/login",
     {
-      "username": username.value,
       "email": email.value,
       "password": password.value
     }).then((response) => {
-      console.log("response: " + response.data);
+    console.log("response: " + response.data);
   }).catch((error) => {
     console.log(error);
   })
