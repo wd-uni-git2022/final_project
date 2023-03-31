@@ -1,6 +1,7 @@
 <template>
   <q-page padding class="flex flex-center">
     <!-- content -->
+    <template v-if="!done">
     <h2>Question: {{ currentQuestion.question }}</h2>
 
     <div class="q-pa-md">
@@ -11,7 +12,10 @@
       />
     </div>
     <q-btn label="Next" @click="nextQuestion"/>
-
+    </template>
+    <template v-else>
+      <h2>You answered {{results.filter(r => r === true).length}} out of {{questions.length}} questions correctly.</h2>
+    </template>
   </q-page>
 </template>
 
@@ -22,11 +26,17 @@ import {useRoute} from "vue-router";
 
 const route = useRoute();
 
+const questionCounter = ref(0);
+
 const questions = ref([]);
 const currentQuestion = ref({});
 
 const answerOptions = ref([]);
 const group = ref([]);
+
+const results = ref([]);
+
+const done = ref(false);
 
 onBeforeMount(() => {
   api.get("/api/quiz/" + route.params.id)
@@ -37,13 +47,38 @@ onBeforeMount(() => {
 
 
       currentQuestion.value.answerList.forEach((answer) => {
-        answerOptions.value.push({label: answer.answer, value: answer.correct, color: "green"});
+        answerOptions.value.push({label: answer.answer, value: answer.answerId, color: "green"});
       })
 
     })
 })
 
 function nextQuestion() {
+
+  let falseAnswerIds = currentQuestion.value.answerList.filter(a => !a.correct).map(a => a.answerId);
+  console.log("falseAnswerIds: " + falseAnswerIds);
+  let allAnswersCorrect = !falseAnswerIds.some(f => group.value.includes(f));
+
+  if (allAnswersCorrect) {
+    console.log("all answers correct");
+  } else {
+    console.log("not all answers are correct");
+  }
+
+  results.value.push(allAnswersCorrect);
+
+  questionCounter.value++;
+  if (questionCounter.value < questions.value.length) {
+    currentQuestion.value = questions.value[questionCounter.value];
+
+    answerOptions.value = [];
+    currentQuestion.value.answerList.forEach((answer) => {
+      answerOptions.value.push({label: answer.answer, value: answer.answerId, color: "green"});
+    })
+
+  }else{
+    done.value = true;
+  }
 
 }
 
