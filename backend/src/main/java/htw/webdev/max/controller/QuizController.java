@@ -3,6 +3,7 @@ package htw.webdev.max.controller;
 import htw.webdev.max.model.Quiz;
 import htw.webdev.max.service.QuizService;
 import org.jboss.logging.Logger;
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 
 import javax.annotation.security.RolesAllowed;
@@ -28,16 +29,26 @@ public class QuizController {
     public Response getQuizzes() {
 
         List<Quiz> quizList = quizService.getAllQuizzes();
+        quizList.forEach(quiz -> quiz.setQuestionList(null));
         return Response.ok(quizList).build();
     }
 
-    @POST
-    @RolesAllowed({"Admin"})
-    public Response addQuiz(Quiz quiz) {
+    @GET
+    @RolesAllowed({"User", "Admin"})
+    @Path("/{quizId}")
+    public Response getQuizById(@PathParam long quizId){
+        Quiz quiz = quizService.getQuizById(quizId);
+        return Response.ok(quiz).build();
+    }
 
-        quizService.saveQuiz(quiz);
+    @POST
+    @RolesAllowed("Admin")
+    public Response createQuiz() {
+
+        // TODO: Get quiz
+        //quizService.createQuiz();
         // LOG.info(jsonObject);
-        LOG.info(quiz.toString());
+        //LOG.info(quiz.toString());
         return Response.ok().build();
     }
 
