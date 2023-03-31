@@ -76,6 +76,44 @@
       <!-- QScrollArea is optional -->
       <q-scroll-area class="fit q-pa-sm">
         <!-- Content here -->
+        <q-list>
+
+          <q-item clickable v-ripple to="/">
+            <q-item-section>
+              Home
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple to="/quizzes">
+            <q-item-section>
+              Quizzes
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple to="/login" v-if="!useUserStore().isAuthenticated">
+            <q-item-section>
+              Login
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple to="/register" v-if="!useUserStore().isAuthenticated">
+            <q-item-section>
+              Register
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple to="/logout" v-if="useUserStore().isAuthenticated">
+            <q-item-section>
+              Logout
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple to="/about">
+            <q-item-section>
+              About
+            </q-item-section>
+          </q-item>
+
+
+        </q-list>
       </q-scroll-area>
     </q-drawer>
 
@@ -98,7 +136,7 @@ const leftDrawerOpen = ref(false)
 
 const isMobile = ref();
 
-function mobileCheck(width){
+function mobileCheck(width) {
   return width < 900;
 }
 
