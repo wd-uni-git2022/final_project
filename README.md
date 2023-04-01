@@ -12,6 +12,13 @@
 
 4. Go to `http://localhost:8080/` to view the quiz app
 
+5. On startup two test users get automatically created for login
+
+    - Credentials:
+      
+        - email: `user@example.org`, password: `user`
+
+        - email: `admin@example.org`, password: `admin`
 
 ## Components
 
