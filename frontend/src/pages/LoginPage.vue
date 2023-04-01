@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <q-page padding class="flex flex-center">
     <q-form @submit="onSubmit">
       <q-input
         filled

@@ -25,6 +25,7 @@ public class UserService {
         return appUserList;
     }
 
+    @Transactional
     public boolean deleteUser(long userId) {
         return appUserRepository.deleteById(userId);
     }

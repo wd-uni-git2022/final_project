@@ -1,10 +1,8 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    >
+  <q-page class="flex flex-center" padding>
+
+    <h2 class="text-center">Welcome to the Quiz App</h2>
+
   </q-page>
 </template>
 

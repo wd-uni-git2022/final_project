@@ -33,23 +33,17 @@
         />
         <q-route-tab
           v-if="useUserStore().isAdmin"
-          icon="assignment"
+          icon="add"
           to="/add-quiz"
           replace
           label="Add Quiz"
         />
         <q-route-tab
           v-if="useUserStore().isAdmin"
-          icon="assignment"
+          icon="list"
           to="/user-list"
           replace
           label="Users"
-        />
-        <q-route-tab
-          icon="assignment"
-          to="/about"
-          replace
-          label="About"
         />
         <q-route-tab
           v-if="!useUserStore().isAuthenticated"
@@ -67,7 +61,7 @@
         />
         <q-route-tab
           v-if="useUserStore().isAuthenticated"
-          icon="app_registration"
+          icon="logout"
           @click="handleLogout"
           replace
           label="Logout"
@@ -113,12 +107,6 @@
           <q-item clickable v-ripple to="/user-list" v-if="useUserStore().isAdmin">
             <q-item-section>
               Users
-            </q-item-section>
-          </q-item>
-
-          <q-item clickable v-ripple to="/about">
-            <q-item-section>
-              About
             </q-item-section>
           </q-item>
 

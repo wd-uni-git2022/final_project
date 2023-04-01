@@ -91,8 +91,15 @@ onMounted(() => {
 
 
 function deleteUser(userId) {
+  api.delete("/api/user/" + userId)
+    .then((response) => {
+      // router.push("/user-list")
+      window.location = "/user-list";
+    }).catch((error) => {
+    // router.push("/user-list")
+    // window.location ="/user-list";
+  })
 
-  window.location ="/user-list";
 }
 
 const currentUserEdit = ref(null);
@@ -109,13 +116,10 @@ function updateUser() {
     .then((response) => {
       // router.push("/user-list")
       // window.location ="/user-list";
-      currentUserEdit.value = JSON.parse(JSON.stringify(currentUserEditDisplay.value));
     }).catch((error) => {
     // router.push("/user-list")
     // window.location ="/user-list";
   })
-
-
 
 
 }
