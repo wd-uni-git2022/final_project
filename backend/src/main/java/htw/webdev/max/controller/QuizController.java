@@ -36,19 +36,16 @@ public class QuizController {
     @GET
     @RolesAllowed({"User", "Admin"})
     @Path("/{quizId}")
-    public Response getQuizById(@PathParam long quizId){
+    public Response getQuizById(@PathParam long quizId) {
         Quiz quiz = quizService.getQuizById(quizId);
         return Response.ok(quiz).build();
     }
 
     @POST
     @RolesAllowed("Admin")
-    public Response createQuiz() {
+    public Response addQuiz(Quiz quiz) {
 
-        // TODO: Get quiz
-        //quizService.createQuiz();
-        // LOG.info(jsonObject);
-        //LOG.info(quiz.toString());
+        quizService.addQuiz(quiz);
         return Response.ok().build();
     }
 

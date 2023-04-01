@@ -1,4 +1,4 @@
-package htw.webdev.max.config;
+package htw.webdev.max.config.example;
 
 import htw.webdev.max.model.AppUser;
 import htw.webdev.max.service.AuthService;

@@ -32,6 +32,18 @@
           label="Quizzes"
         />
         <q-route-tab
+          icon="assignment"
+          to="/add-quiz"
+          replace
+          label="Add Quiz"
+        />
+        <q-route-tab
+          icon="assignment"
+          to="/about"
+          replace
+          label="About"
+        />
+        <q-route-tab
           v-if="!useUserStore().isAuthenticated"
           icon="login"
           to="/login"
@@ -52,12 +64,7 @@
           replace
           label="Logout"
         />
-        <q-route-tab
-          icon="assignment"
-          to="/about"
-          replace
-          label="About"
-        />
+
 
 
       </q-tabs>
