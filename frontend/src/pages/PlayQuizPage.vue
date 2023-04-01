@@ -2,19 +2,33 @@
   <q-page padding class="flex flex-center">
     <!-- content -->
     <template v-if="!done">
-    <h2>Question: {{ currentQuestion.question }}</h2>
+      <q-card class="my-card">
+        <q-card-section>
+          <div class="text-h6">Question</div>
+          <div class="text-subtitle2">{{ currentQuestion.question }}</div>
+        </q-card-section>
 
-    <div class="q-pa-md">
-      <q-option-group
-        :options="answerOptions"
-        type="checkbox"
-        v-model="group"
-      />
-    </div>
-    <q-btn label="Next" @click="nextQuestion"/>
+        <q-separator />
+
+        <q-card-actions vertical>
+          <div class="q-pa-md">
+            <q-option-group
+              :options="answerOptions"
+              type="checkbox"
+              v-model="group"
+            />
+          </div>
+          <q-btn label="Next" @click="nextQuestion"/>
+        </q-card-actions>
+      </q-card>
+
     </template>
     <template v-else>
-      <h2>You answered {{results.filter(r => r === true).length}} out of {{questions.length}} questions correctly.</h2>
+      <div class="text-center">
+        <h2 >You answered {{ results.filter(r => r === true).length }} out of {{ questions.length }}
+          questions correctly.</h2>
+      </div>
+
     </template>
   </q-page>
 </template>
@@ -76,7 +90,7 @@ function nextQuestion() {
       answerOptions.value.push({label: answer.answer, value: answer.answerId, color: "green"});
     })
 
-  }else{
+  } else {
     done.value = true;
   }
 

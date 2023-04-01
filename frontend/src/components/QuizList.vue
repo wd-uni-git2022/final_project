@@ -1,8 +1,8 @@
 <template>
 
-  <div>
+  <div class="flex flex-center row">
     <template v-for="quiz in quizzes" :key="quiz.quizId" >
-      <quiz-list-preview class="q-mb-md" :name="quiz.quizName" :id="quiz.quizId"></quiz-list-preview>
+      <quiz-list-preview class="q-ma-md" :name="quiz.quizName" :id="quiz.quizId"></quiz-list-preview>
     </template>
   </div>
 </template>

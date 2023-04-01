@@ -2,16 +2,16 @@
 
 
   <q-card class="my-card">
-    <q-card-section horizontal class="bg-primary text-white">
+    <q-card-section>
       <div class="text-h6">{{ props.name }}</div>
-
-      <q-card-actions vertical class="justify-around q-px-md">
-        <q-btn v-if="useUserStore().isAuthenticated" color="secondary" label="Play" :to='"/quizzes/" + id'/>
-        <q-btn v-else color="secondary" label="Play" disable/>
-      </q-card-actions>
     </q-card-section>
 
+    <q-separator />
 
+    <q-card-actions vertical>
+      <q-btn v-if="useUserStore().isAuthenticated" color="secondary" label="Play" :to='"/quizzes/" + id'/>
+      <q-btn v-else color="secondary" label="Play" disable/>
+    </q-card-actions>
   </q-card>
 
 </template>

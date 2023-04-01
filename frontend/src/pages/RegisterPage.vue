@@ -84,7 +84,7 @@ function onSubmit() {
     console.log("response: " + response.data);
     localStorage.setItem("token", response.data.token);
     api.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
-    useUserStore().isAuthenticated.value = true;
+    useUserStore().isAuthenticated = true;
     router.push("/")
   }).catch((error) => {
     console.log(error);

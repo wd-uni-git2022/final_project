@@ -6,10 +6,6 @@
       <template :key="user.id" v-for="user in userList">
         <q-card class="my-card q-ma-lg q-pa-sm">
           <q-card-section horizontal>
-            <q-img
-              class="col"
-              src="https://cdn.quasar.dev/img/parallax2.jpg"
-            />
             <div class="q-pr-sm">
               <p>Username: {{ user.username }}</p>
               <p>Email: {{ user.email }}</p>
@@ -47,22 +43,7 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-    <!--
-    <div v-else>
-      <q-form @submit="updateUser">
-        <q-input
-          filled
-          v-model="currentUserEdit.username"
-          label="Username"
-          lazy-rules
-          :rules="[ val => val && val.length > 0 || 'Please enter a valid username']"
-        />
 
-        <q-btn label="Update" type="submit" color="primary"/>
-
-      </q-form>
-    </div>
--->
   </q-page>
 </template>
 
