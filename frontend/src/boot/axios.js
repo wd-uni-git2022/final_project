@@ -17,6 +17,7 @@ api.interceptors.response.use((response) => response, (error) => {
     localStorage.removeItem("token");
     delete api.defaults.headers.common["Authorization"];
     useUserStore().isAuthenticated = false;
+    useUserStore().isAdmin = false;
     window.location = "/login";
   }
 });

@@ -32,10 +32,18 @@
           label="Quizzes"
         />
         <q-route-tab
+          v-if="useUserStore().isAdmin"
           icon="assignment"
           to="/add-quiz"
           replace
           label="Add Quiz"
+        />
+        <q-route-tab
+          v-if="useUserStore().isAdmin"
+          icon="assignment"
+          to="/user-list"
+          replace
+          label="Users"
         />
         <q-route-tab
           icon="assignment"
@@ -66,7 +74,6 @@
         />
 
 
-
       </q-tabs>
     </q-header>
 
@@ -90,11 +97,31 @@
               Home
             </q-item-section>
           </q-item>
+
           <q-item clickable v-ripple to="/quizzes">
             <q-item-section>
               Quizzes
             </q-item-section>
           </q-item>
+
+          <q-item clickable v-ripple to="/add-quiz" v-if="useUserStore().isAdmin">
+            <q-item-section>
+              Add Quiz
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple to="/user-list" v-if="useUserStore().isAdmin">
+            <q-item-section>
+              Users
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable v-ripple to="/about">
+            <q-item-section>
+              About
+            </q-item-section>
+          </q-item>
+
           <q-item clickable v-ripple to="/login" v-if="!useUserStore().isAuthenticated">
             <q-item-section>
               Login
@@ -110,12 +137,6 @@
           <q-item clickable v-ripple @click="handleLogout" v-if="useUserStore().isAuthenticated">
             <q-item-section>
               Logout
-            </q-item-section>
-          </q-item>
-
-          <q-item clickable v-ripple to="/about">
-            <q-item-section>
-              About
             </q-item-section>
           </q-item>
 

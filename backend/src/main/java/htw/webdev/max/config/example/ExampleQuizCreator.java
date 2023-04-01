@@ -55,7 +55,7 @@ public class ExampleQuizCreator {
 
 
         Quiz quiz2 = new Quiz();
-        quiz.setQuizName("Example Quiz 2");
+        quiz2.setQuizName("Example Quiz 2");
         Question question2 = new Question();
         question2.setQuestion("Example Question 1");
         question2.setAnswerList(List.of(falseAnswer4, falseAnswer5, correctAnswer2, correctAnswer3));

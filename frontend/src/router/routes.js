@@ -9,7 +9,8 @@ const routes = [
       { path: 'login', component: () => import('pages/LoginPage.vue') },
       { path: 'quizzes', component: () => import('pages/QuizPage.vue') },
       { path: 'quizzes/:id', component: () => import('pages/PlayQuizPage.vue') },
-      { path: 'add-quiz', component: () => import('pages/AddQuizPage.vue') }
+      { path: 'add-quiz', component: () => import('pages/AddQuizPage.vue') },
+      { path: 'user-list', component: () => import('pages/UserListPage.vue') }
     ]
   },
 
