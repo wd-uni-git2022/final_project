@@ -15,7 +15,11 @@ public class ExampleQuizCreator {
 
     public ExampleQuizCreator(QuizService quizService){
 
-        // Example quiz1
+        // Example quiz 1
+        Quiz quiz = new Quiz();
+        quiz.setQuizName("Example Quiz 1");
+
+        // Question 1
         Answer falseAnswer = new Answer();
         falseAnswer.setAnswer("False example answer1");
         falseAnswer.setCorrect(false);
@@ -29,17 +33,12 @@ public class ExampleQuizCreator {
         correctAnswer.setAnswer("Correct example answer");
         correctAnswer.setCorrect(true);
 
-
-        Quiz quiz = new Quiz();
-        quiz.setQuizName("Example Quiz 1");
         Question question1 = new Question();
         question1.setQuestion("Example Question 1");
         question1.setAnswerList(List.of(correctAnswer, falseAnswer, falseAnswer2, falseAnswer3));
-        quiz.setQuestionList(List.of(question1));
-        quizService.addQuiz(quiz);
 
 
-        // Example quiz2
+        // Question 2
         Answer falseAnswer4 = new Answer();
         falseAnswer4.setAnswer("False example answer1");
         falseAnswer4.setCorrect(false);
@@ -52,16 +51,12 @@ public class ExampleQuizCreator {
         Answer correctAnswer3 = new Answer();
         correctAnswer3.setAnswer("Correct example answer2");
         correctAnswer3.setCorrect(true);
-
-
-        Quiz quiz2 = new Quiz();
-        quiz2.setQuizName("Example Quiz 2");
         Question question2 = new Question();
-        question2.setQuestion("Example Question 1");
+        question2.setQuestion("Example Question 2");
         question2.setAnswerList(List.of(falseAnswer4, falseAnswer5, correctAnswer2, correctAnswer3));
-        quiz.setQuestionList(List.of(question2));
-        quizService.addQuiz(quiz2);
 
+        quiz.setQuestionList(List.of(question1, question2));
+        quizService.addQuiz(quiz);
 
 
     }
