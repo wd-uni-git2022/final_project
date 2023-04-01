@@ -20,6 +20,14 @@
 
         - email: `admin@example.org`, password: `admin`
 
+6. There is also one example quiz already
+
+7. Anonymous users can only view existing quiz names in the quiz list
+
+8. Logged in users can play quizzes
+
+9. Admins can create quizzes, edit the username of users and delete users
+
 ## Components
 
 - Vue frontend
